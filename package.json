@@ -1,0 +1,88 @@
+{
+  "name": "sample-app",
+  "description": "",
+  "author": "",
+  "version": "0.1.0",
+  "homepage": "",
+  "license": "",
+  "main": "app.js",
+  "readmeFilename": "",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "engineStrict": true,
+  "dependencies": {
+    "roosevelt": "^0.6.0",
+    "teddy": "^0.3.0",
+    "roosevelt-less": "^0.2.0",
+    "roosevelt-closure": "^0.2.0"
+  },
+  "devDependencies": {
+    "jshint": "*",
+    "nodemon": "*"
+  },
+  "rooseveltConfig": {
+    "port": 43711,
+    "localhostOnly": true,
+    "disableLogger": false,
+    "noMinify": false,
+    "multipart": {
+      "multiples": true
+    },
+    "maxLagPerRequest": 2000,
+    "shutdownTimeout": 30000,
+    "modelsPath": "mvc/models",
+    "modelsNodeModulesSymlink": "models",
+    "viewsPath": "mvc/views",
+    "viewEngine": "html: teddy",
+    "controllersPath": "mvc/controllers",
+    "error404": "404.js",
+    "error5xx": "5xx.js",
+    "error503": "503.js",
+    "staticsRoot": "statics",
+    "cssPath": "css",
+    "cssCompiler": {
+      "nodeModule": "roosevelt-less",
+      "params": {
+        "compress": true
+      }
+    },
+    "cssCompilerWhitelist": null,
+    "cssCompiledOutput": ".build/css",
+    "jsPath": "js",
+    "jsCompiler": {
+      "nodeModule": "roosevelt-closure",
+      "params": {
+        "compilation_level": "ADVANCED_OPTIMIZATIONS"
+      }
+    },
+    "jsCompilerWhitelist": null,
+    "jsCompiledOutput": ".build/js",
+    "publicFolder": "public",
+    "symlinksToStatics": [
+      "css: .build/css",
+      "images",
+      "js: .build/js"
+    ],
+    "versionedStatics": false,
+    "versionedCssFile": null,
+    "alwaysHostPublic": false
+  },
+  "jshintConfig": {
+    "camelcase": true,
+    "curly": true,
+    "devel": true,
+    "indent": 2,
+    "node": true
+  },
+  "private": true,
+  "repository": {
+    "private-repo": "git+ssh://somewhere:port/folder/on/server"
+  },
+  "scripts": {
+    "start": "npm run prod",
+    "prod": "nodemon -e js,json,less,html --ignore statics/.build/ app.js -prod",
+    "dev": "nodemon -e js,json,less,html --ignore statics/.build/ app.js -dev",
+    "test": "jshint app.js"
+  }
+}
