@@ -1,8 +1,7 @@
 // sample static global base model
 var model = {
   content: {
-    appTitle: 'roosevelt sample app',
-    pageTitle: '{content.appTitle}'
+    appTitle: 'A New World'
   }
 };
 

@@ -1,14 +1,30 @@
-/*
-  This is a sample LESS CSS file. It compiles down to regular CSS. The compilation process is handled automatically by Roosevelt.
-
-  For more information about what fancy new CSS syntax is introduced by LESS, have a look here: http://lesscss.org
-*/
-
-@face: sans-serif;
-
-body {
-  font-family: @face;
-  color: #100;
+main, body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  overflow: hidden;
 }
 
-@import "more.less";
+#world {
+  height: 100%;
+  width: 100%;
+  
+  #square { 
+    width: 100px;
+    height: 100px;
+    z-index: 1;
+    position: absolute;
+    background: green;
+  }
+
+  #worldMap {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+

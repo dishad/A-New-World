@@ -56,7 +56,7 @@
         "compilation_level": "ADVANCED_OPTIMIZATIONS"
       }
     },
-    "jsCompilerWhitelist": null,
+    "jsCompilerWhitelist": ["../js/main.js"],
     "jsCompiledOutput": ".build/js",
     "publicFolder": "public",
     "symlinksToStatics": [
