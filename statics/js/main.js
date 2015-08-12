@@ -41,19 +41,19 @@ newWorldProject.movementKeys = function() {
     switch(e.keyCode) {
       case 37: // left arrow
         console.log('left');
-        hero.style['margin-left'] = (heroLeftPos - 32) + 'px';
+        hero.style['margin-left'] = (heroLeftPos - 16) + 'px';
         break;
       case 39: // right arrow
         console.log('right');
-        hero.style['margin-left'] = (heroLeftPos + 32) + 'px';
+        hero.style['margin-left'] = (heroLeftPos + 16) + 'px';
         break;
       case 38: // up arrow        
         console.log('up');
-        hero.style['margin-top'] = (heroTopPos - 32) + 'px';
+        hero.style['margin-top'] = (heroTopPos - 16) + 'px';
         break;
       case 40: // down arrow
         console.log('down');
-        hero.style['margin-top'] = (heroTopPos + 32) + 'px';
+        hero.style['margin-top'] = (heroTopPos + 16) + 'px';
         break;
     }
     
