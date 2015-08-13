@@ -1,5 +1,7 @@
 var newWorldProject = {};
 
+newWorldProject.randomEncounter = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 newWorldProject.moveObject = function() {
   var objectVar = {};
   
@@ -40,27 +42,44 @@ newWorldProject.movementKeys = function() {
     
     switch(e.keyCode) {
       case 37: // left arrow
-        console.log('left');
         hero.style['margin-left'] = (heroLeftPos - 16) + 'px';
         break;
       case 39: // right arrow
-        console.log('right');
         hero.style['margin-left'] = (heroLeftPos + 16) + 'px';
         break;
       case 38: // up arrow        
-        console.log('up');
         hero.style['margin-top'] = (heroTopPos - 16) + 'px';
         break;
       case 40: // down arrow
-        console.log('down');
         hero.style['margin-top'] = (heroTopPos + 16) + 'px';
         break;
     }
-    
-    console.log(heroLeftPos);
-    console.log(heroTopPos);
+    newWorldProject.combatMenu();
   });
 };
+
+newWorldProject.combatMenu = function() {
+  var world = document.getElementById('world'),
+      hero = document.getElementById('hero'),
+      battleDone = false,
+      outerBox,
+      innerBox;
+  
+  if (hero.style['margin-left'] === '48px' && hero.style['margin-top'] === '80px') {
+    outerBox = document.createElement('div');
+    innerBox = document.createElement('div');
+    outerBox.className = 'outerCombatBox';
+    innerBox.className = 'innerCombatBox';
+    world.appendChild(outerBox);
+    world.appendChild(innerBox);
+      
+    document.addEventListener('click', function() {
+      world.removeChild(outerBox); 
+      world.removeChild(innerBox); 
+    });
+  }
+};
+
 
 window.addEventListener('load', function() {
   newWorldProject.movementKeys();
