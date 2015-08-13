@@ -1,6 +1,6 @@
 var newWorldProject = {};
 
-newWorldProject.randomEncounter = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+newWorldProject.randomEncounter = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 newWorldProject.moveObject = function() {
   var objectVar = {};
@@ -34,27 +34,43 @@ newWorldProject.moveObject = function() {
 };
 
 newWorldProject.movementKeys = function() {
-  var hero = document.getElementById('hero');
-    
+  var hero = document.getElementById('hero'),
+      stepCount = 0,
+      arrayLength = 19,
+      heroLeftPos,
+      heroTopPos;
+      
   document.addEventListener('keydown', function(e) {
-    var heroLeftPos = parseInt(window.getComputedStyle(hero).getPropertyValue('margin-left')),
-        heroTopPos = parseInt(window.getComputedStyle(hero).getPropertyValue('margin-top'));
+    heroLeftPos = parseInt(window.getComputedStyle(hero).getPropertyValue('margin-left'));
+    heroTopPos = parseInt(window.getComputedStyle(hero).getPropertyValue('margin-top'));
     
     switch(e.keyCode) {
       case 37: // left arrow
         hero.style['margin-left'] = (heroLeftPos - 16) + 'px';
+        stepCount++;
         break;
       case 39: // right arrow
         hero.style['margin-left'] = (heroLeftPos + 16) + 'px';
+        stepCount++;
         break;
       case 38: // up arrow        
         hero.style['margin-top'] = (heroTopPos - 16) + 'px';
+        stepCount++;
         break;
       case 40: // down arrow
         hero.style['margin-top'] = (heroTopPos + 16) + 'px';
+        stepCount++;
         break;
     }
-    newWorldProject.combatMenu();
+
+    if (stepCount % 3 === 0) {
+      if (newWorldProject.randomEncounter[Math.floor(Math.random() * arrayLength)] === 1) {
+        newWorldProject.combatMenu();
+        stepCount = 0;
+        arrayLength = 19;
+      }
+      arrayLength--;
+    }
   });
 };
 
@@ -65,19 +81,17 @@ newWorldProject.combatMenu = function() {
       outerBox,
       innerBox;
   
-  if (hero.style['margin-left'] === '48px' && hero.style['margin-top'] === '80px') {
-    outerBox = document.createElement('div');
-    innerBox = document.createElement('div');
-    outerBox.className = 'outerCombatBox';
-    innerBox.className = 'innerCombatBox';
-    world.appendChild(outerBox);
-    world.appendChild(innerBox);
+  outerBox = document.createElement('div');
+  innerBox = document.createElement('div');
+  outerBox.className = 'outerCombatBox';
+  innerBox.className = 'innerCombatBox';
+  world.appendChild(outerBox);
+  world.appendChild(innerBox);
       
-    document.addEventListener('click', function() {
-      world.removeChild(outerBox); 
-      world.removeChild(innerBox); 
-    });
-  }
+  document.addEventListener('click', function() {
+    world.removeChild(outerBox); 
+    world.removeChild(innerBox); 
+  });
 };
 
 
