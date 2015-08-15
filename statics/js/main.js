@@ -2,6 +2,96 @@ var newWorldProject = {};
 
 newWorldProject.randomEncounter = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+newWorldProject.zoneOne = [
+  {
+    name: 'bat1',
+    src: '../images/bat1.png',
+    health: 10,
+    damageMin: 1,
+    damageMax: 2
+  },  
+  {
+    name: 'slug1',
+    src: '../images/slug1.png',
+    health: 10,
+    damageMin: 1,
+    damageMax: 2
+  },  
+  {
+    name: 'wolf1',
+    src: '../images/wolf1.png',
+    health: 10,
+    damageMin: 1,
+    damageMax: 2
+  },  
+  {
+    name: 'ghost1',
+    src: '../images/ghost1.png',
+    health: 10,
+    damageMin: 1,
+    damageMax: 2
+  }
+];
+    
+newWorldProject.monsterPositions = function(pos, zone) {
+  var world = document.getElementById('world'),
+      monster = zone[Math.floor(Math.random() * (zone.length - 1))],
+      monsterElement = document.createElement('img'),
+      innerCombat = document.getElementsByClassName('innerCombatBox')[0],
+      combatLeftPos = parseInt(window.getComputedStyle(innerCombat).getPropertyValue('margin-left')),
+      combatTopPos = parseInt(window.getComputedStyle(innerCombat).getPropertyValue('margin-top')),
+      combatWidth = parseInt(window.getComputedStyle(innerCombat).getPropertyValue('width'));
+  
+  switch(pos) {
+    case 'left':
+      monsterElement.className = 'leftMonster'; 
+      monsterElement.style['margin-left'] = combatLeftPos + (combatWidth - (200*3)) + 'px';
+      break;
+    case 'leftCenter':
+      monsterElement.className = 'leftCenterMonster'; 
+      monsterElement.style['margin-left'] = combatLeftPos + (combatWidth - (200*2.5)) + 'px';
+      break;
+    case 'center':
+      monsterElement.className = 'centerMonster'; 
+      monsterElement.style['margin-left'] = combatLeftPos + (combatWidth- (200*2)) + 'px';
+      break;
+    case 'rightCenter': 
+      monsterElement.className = 'rightCenterMonster'; 
+      monsterElement.style['margin-left'] = combatLeftPos + (combatWidth- (200*1.5)) + 'px';
+      break;
+    case 'right': 
+      monsterElement.className = 'rightMonster'; 
+      monsterElement.style['margin-left'] = combatLeftPos + (combatWidth- (200)) + 'px';
+      break;
+  }
+
+  monsterElement.style['margin-top'] = combatTopPos + 40 + 'px';
+  monsterElement.setAttribute('alt', monster.name);
+  monsterElement.setAttribute('src', monster.src);
+  world.appendChild(monsterElement);
+};
+    
+newWorldProject.putMonstersOnScreen = function() {
+  var numberOfMonsters = [1, 2, 3],
+      randomNumberOfMonsters = Math.floor(Math.random() * numberOfMonsters.length + 1);
+    
+  switch(randomNumberOfMonsters) {
+    case 1:
+      newWorldProject.monsterPositions('center', newWorldProject.zoneOne);
+      break;
+    case 2:
+      newWorldProject.monsterPositions('leftCenter', newWorldProject.zoneOne);
+      newWorldProject.monsterPositions('rightCenter', newWorldProject.zoneOne);
+      break;
+    case 3:
+      newWorldProject.monsterPositions('left', newWorldProject.zoneOne);
+      newWorldProject.monsterPositions('center', newWorldProject.zoneOne);
+      newWorldProject.monsterPositions('right', newWorldProject.zoneOne);
+      break;
+  }
+};
+    
+
 newWorldProject.moveObject = function() {
   var objectVar = {};
   
@@ -78,16 +168,17 @@ newWorldProject.combatMenu = function() {
   var world = document.getElementById('world'),
       hero = document.getElementById('hero'),
       battleDone = false,
-      outerBox,
-      innerBox;
-  
-  outerBox = document.createElement('div');
-  innerBox = document.createElement('div');
+      outerBox = document.createElement('div'),
+      innerBox = document.createElement('img');
+
   outerBox.className = 'outerCombatBox';
   innerBox.className = 'innerCombatBox';
+  innerBox.setAttribute('src', '../images/innerCombat.png');
   world.appendChild(outerBox);
   world.appendChild(innerBox);
       
+  newWorldProject.putMonstersOnScreen();
+  
   document.addEventListener('click', function() {
     world.removeChild(outerBox); 
     world.removeChild(innerBox); 
