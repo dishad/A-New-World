@@ -43,6 +43,7 @@ newWorldProject.combatWeapons = [
   },
   {
     name: 'Wooden Sword',
+    id: 'woodenSword',
     src: '../images/woodSword.png',
     damageMin: 1,
     damageMax: 3,
@@ -50,6 +51,7 @@ newWorldProject.combatWeapons = [
   },
   {
     name: 'Iron Sword',
+    id: 'ironSword',
     src: '../images/ironSword.png',
     damageMin: 2,
     damageMax: 4,
@@ -57,6 +59,7 @@ newWorldProject.combatWeapons = [
   },
   {
     name: 'Steel Sword',
+    id: 'steelSword',
     src: '../images/steelSword.png',
     damageMin: 3,
     damageMax: 6,
@@ -64,6 +67,7 @@ newWorldProject.combatWeapons = [
   },
   {
     name: 'Roaas Sword',
+    id: 'roaasSword',
     src: '../images/roaasSword',
     damageMin: 6,
     damageMax: 10,
@@ -71,6 +75,7 @@ newWorldProject.combatWeapons = [
   },
   {
     name: 'Alien Sword',
+    id: 'alienSword',
     src: '../images/alienSword',
     damageMin: 10,
     damageMax: 15,
@@ -78,21 +83,23 @@ newWorldProject.combatWeapons = [
   },
   {
     name: 'Magmite Sword',
+    id: 'magmiteSword',
     src: '../images/magmiteSword',
     damageMin: 15,
     damageMax: 25,
     cost: ''
-  }];
+  }
+];
     
 newWorldProject.monsterPositions = function(pos, zone) {
   var world = document.getElementById('world'),
-      monster = zone[Math.floor(Math.random() * (zone.length - 1))],
+      monster = zone[Math.floor(Math.random() * zone.length)],
       monsterElement = document.createElement('img'),
       innerCombat = document.getElementsByClassName('innerCombatBox')[0],
       combatLeftPos = parseInt(window.getComputedStyle(innerCombat).getPropertyValue('margin-left')),
       combatTopPos = parseInt(window.getComputedStyle(innerCombat).getPropertyValue('margin-top')),
       combatWidth = parseInt(window.getComputedStyle(innerCombat).getPropertyValue('width'));
-  
+    
   switch(pos) {
     case 'left':
       monsterElement.className = 'leftMonster'; 
@@ -141,38 +148,6 @@ newWorldProject.putMonstersOnScreen = function() {
       break;
   }
 };
-    
-
-//newWorldProject.moveObject = function() {
-//  var objectVar = {};
-//  
-//  function mouseDown(e) {
-//    objectVar.target = e.target,
-//    objectVar.xPosition = e.clientX,
-//    objectVar.yPosition = e.clientY,
-//    objectVar.Style = window.getComputedStyle(objectVar.target, null);
-//    objectVar.xTracker = parseInt(objectVar.Style.getPropertyValue('margin-left')),
-//    objectVar.yTracker = parseInt(objectVar.Style.getPropertyValue('margin-top'));
-//
-//    if (objectVar.target.id === 'worldMap') {
-//      document.addEventListener('mousemove', mouseMove);
-//    }
-//    
-//    document.addEventListener('mouseup', function() {
-//      document.removeEventListener('mousemove', mouseMove);
-//    });
-//  }
-//
-//  function mouseMove(e) {
-//    objectVar.differenceX = objectVar.xTracker - objectVar.xPosition + e.clientX,
-//    objectVar.differenceY = objectVar.yTracker - objectVar.yPosition + e.clientY;
-//    
-//    objectVar.target.style['margin-left'] = objectVar.differenceX + 'px';
-//    objectVar.target.style['margin-top'] = objectVar.differenceY + 'px';
-//  }
-//  
-//  document.addEventListener('mousedown', mouseDown);
-//};
 
 newWorldProject.movementKeys = function() {
   var hero = document.getElementById('hero'),
@@ -238,6 +213,64 @@ newWorldProject.combatMenu = function() {
 
 
 window.addEventListener('load', function() {
+  var itemArray = [],
+      shopItems = [];
+  
+  for (var i = 0; i < newWorldProject.combatWeapons.length; i++) {
+    if (newWorldProject.combatWeapons[i].cost !== '') {
+      itemArray.push(newWorldProject.combatWeapons[i]);  
+    }
+  }
+  
+  for (var i = 0; i < itemArray.length; i++) {
+    shopItems[i] = document.createElement('img');
+    shopItems[i].id = newWorldProject.combatWeapons.id;
+    shopItems[i].src = newWorldProject.combatWeapons.src;
+  }
+  
+  document.getElementById('shop').addEventListener('click', function() {
+    var world = document.getElementById('world'),
+        shopBox = document.createElement('div');
+
+    shopBox.className = 'shopBox';
+    world.appendChild(shopBox);
+    
+    
+  });
   newWorldProject.movementKeys();
-//  newWorldProject.moveObject();
 });
+
+
+
+// Code that will be used later for the world map navigator
+//
+//newWorldProject.moveObject = function() {
+//  var objectVar = {};
+//  
+//  function mouseDown(e) {
+//    objectVar.target = e.target,
+//    objectVar.xPosition = e.clientX,
+//    objectVar.yPosition = e.clientY,
+//    objectVar.Style = window.getComputedStyle(objectVar.target, null);
+//    objectVar.xTracker = parseInt(objectVar.Style.getPropertyValue('margin-left')),
+//    objectVar.yTracker = parseInt(objectVar.Style.getPropertyValue('margin-top'));
+//
+//    if (objectVar.target.id === 'worldMap') {
+//      document.addEventListener('mousemove', mouseMove);
+//    }
+//    
+//    document.addEventListener('mouseup', function() {
+//      document.removeEventListener('mousemove', mouseMove);
+//    });
+//  }
+//
+//  function mouseMove(e) {
+//    objectVar.differenceX = objectVar.xTracker - objectVar.xPosition + e.clientX,
+//    objectVar.differenceY = objectVar.yTracker - objectVar.yPosition + e.clientY;
+//    
+//    objectVar.target.style['margin-left'] = objectVar.differenceX + 'px';
+//    objectVar.target.style['margin-top'] = objectVar.differenceY + 'px';
+//  }
+//  
+//  document.addEventListener('mousedown', mouseDown);
+//};
