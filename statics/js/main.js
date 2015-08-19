@@ -68,7 +68,7 @@ newWorldProject.combatWeapons = [
   {
     name: 'Roaas Sword',
     id: 'roaasSword',
-    src: '../images/roaasSword',
+    src: '../images/roaasSword.png',
     damageMin: 6,
     damageMax: 10,
     cost: ''
@@ -76,7 +76,7 @@ newWorldProject.combatWeapons = [
   {
     name: 'Alien Sword',
     id: 'alienSword',
-    src: '../images/alienSword',
+    src: '../images/alienSword.png',
     damageMin: 10,
     damageMax: 15,
     cost: 5000
@@ -84,7 +84,7 @@ newWorldProject.combatWeapons = [
   {
     name: 'Magmite Sword',
     id: 'magmiteSword',
-    src: '../images/magmiteSword',
+    src: '../images/magmiteSword.png',
     damageMin: 15,
     damageMax: 25,
     cost: ''
@@ -213,32 +213,46 @@ newWorldProject.combatMenu = function() {
 
 
 window.addEventListener('load', function() {
-  var itemArray = [],
-      shopItems = [];
-  
-  for (var i = 0; i < newWorldProject.combatWeapons.length; i++) {
-    if (newWorldProject.combatWeapons[i].cost !== '') {
-      itemArray.push(newWorldProject.combatWeapons[i]);  
-    }
-  }
-  
-  for (var i = 0; i < itemArray.length; i++) {
-    shopItems[i] = document.createElement('img');
-    shopItems[i].id = newWorldProject.combatWeapons.id;
-    shopItems[i].src = newWorldProject.combatWeapons.src;
-  }
-  
   document.getElementById('shop').addEventListener('click', function() {
     var world = document.getElementById('world'),
-        shopBox = document.createElement('div');
+        shopBox = document.createElement('table'),
+        arrRowOfTabs = [],
+        weaponTab = document.createElement('th'),
+        armorTab = document.createElement('th'),
+        accessoryTab = document.createElement('th');
 
     shopBox.className = 'shopBox';
     world.appendChild(shopBox);
-    
+    newWorldProject.makeShopTableCells(shopBox,newWorldProject.combatWeapons);
     
   });
   newWorldProject.movementKeys();
 });
+
+newWorldProject.makeShopTableCells = function(table, array) {
+  var itemArrayOfObj = [],
+      itemArrayOfElements = [],
+      tableDiv = document.createElement('td'),
+      i;
+  
+  table.appendChild(tableDiv);
+  
+  // Makes an array of only weapons that cost money
+  for (i = 0; i < array.length; i++) {
+    if (array[i].cost !== '') {
+      itemArrayOfObj.push(array[i]);  
+    }
+  }
+  for (i = 0; i < itemArrayOfObj.length; i++) {
+    
+    itemArrayOfElements[i] = document.createElement('img');
+    itemArrayOfElements[i].src = itemArrayOfObj[i].src;
+    itemArrayOfElements[i].className = 'shopItems';
+    console.log(itemArrayOfElements[i]);
+    
+    tableDiv.appendChild(itemArrayOfElements[i]);  
+  }  
+};
 
 
 
