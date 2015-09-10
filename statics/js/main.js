@@ -71,7 +71,7 @@ newWorldProject.combatWeapons = [
     src: '../images/roaasSword.png',
     damageMin: 6,
     damageMax: 10,
-    cost: ''
+    cost: 2500
   },
   {
     name: 'Alien Sword',
@@ -79,7 +79,7 @@ newWorldProject.combatWeapons = [
     src: '../images/alienSword.png',
     damageMin: 10,
     damageMax: 15,
-    cost: 5000
+    cost: 12500
   },
   {
     name: 'Magmite Sword',
@@ -88,6 +88,40 @@ newWorldProject.combatWeapons = [
     damageMin: 15,
     damageMax: 25,
     cost: ''
+  }
+];
+
+newWorldProject.combatArmor = [
+  {
+    name: 'Wooden Armor',
+    id: 'woodenArmor',
+    src: '../images/woodenArmor.png',
+    defence: 5,
+    cost: 75
+  },
+  {
+    name: 'Iron Armor',
+    id: 'ironArmor',
+    src: '../images/ironArmor.png',
+    defence: 12,
+    cost: 500
+  },
+  {
+    name: 'Steel Armor',
+    id: 'steelArmor',
+    src: '../images/steelArmor.png',
+    defence: 25,
+    cost: 3500
+  }
+];
+
+newWorldProject.combatAccessories = [
+  {
+    name: 'Golden Necklace',
+    id: 'goldenNecklace',
+    src: '../images/goldNecklace.png',
+    effect: 1.5,
+    cost: 10000
   }
 ];
     
@@ -217,27 +251,44 @@ window.addEventListener('load', function() {
     var world = document.getElementById('world'),
         shopBox = document.createElement('table'),
         arrRowOfTabs = [],
+        weaponOn = true,
+        armorOn = false,
+        accessoryOn = false,
+        shopHead = document.createElement('thead'),
+        shopBody = document.createElement('tbody'),
+        shopTabs = document.createElement('tr'),
         weaponTab = document.createElement('th'),
         armorTab = document.createElement('th'),
         accessoryTab = document.createElement('th');
 
     shopBox.className = 'shopBox';
+    weaponTab.textContent = 'Weapons';
+    armorTab.textContent = 'Armors';
+    accessoryTab.textContent = 'Accessories';
+    
     world.appendChild(shopBox);
-    newWorldProject.makeShopTableCells(shopBox,newWorldProject.combatWeapons);
+
+    shopBox.appendChild(shopHead);
+    shopBox.appendChild(shopBody);
+    shopHead.appendChild(shopTabs);
+    shopTabs.appendChild(weaponTab);
+    shopTabs.appendChild(armorTab);
+    shopTabs.appendChild(accessoryTab);
+    newWorldProject.makeShopTableCells(shopBody,newWorldProject.combatWeapons);
     
   });
   newWorldProject.movementKeys();
 });
 
-newWorldProject.makeShopTableCells = function(table, array) {
+newWorldProject.makeShopTableCells = function(tableBody, array) {
   var itemArrayOfObj = [],
       itemArrayOfElements = [],
       tableDiv = document.createElement('td'),
       i;
   
-  table.appendChild(tableDiv);
+  tableBody.appendChild(tableDiv);
   
-  // Makes an array of only weapons that cost money
+  // Makes an array of only items that cost money
   for (i = 0; i < array.length; i++) {
     if (array[i].cost !== '') {
       itemArrayOfObj.push(array[i]);  
@@ -248,13 +299,39 @@ newWorldProject.makeShopTableCells = function(table, array) {
     itemArrayOfElements[i] = document.createElement('img');
     itemArrayOfElements[i].src = itemArrayOfObj[i].src;
     itemArrayOfElements[i].className = 'shopItems';
-    console.log(itemArrayOfElements[i]);
     
     tableDiv.appendChild(itemArrayOfElements[i]);  
   }  
 };
 
+newWorldProject.deleteShopTableCells = function(tableDiv) {
+  var shopItems = tableDiv.childNodes,
+      shopItemsLength = shopItems.length;
 
+
+  while (shopItems.length != 0) {
+    tableDiv.removeChild(shopItems[0]); 
+  }
+};
+
+window.addEventListener('click', function(e) {
+  var td = document.querySelector('.shopBox tbody td');
+  
+  switch (e.target.textContent) {
+    case 'Weapons':
+      newWorldProject.deleteShopTableCells(td);
+      newWorldProject.makeShopTableCells(td, newWorldProject.combatWeapons);
+      break;
+    case 'Armors':
+      newWorldProject.deleteShopTableCells(td);
+      newWorldProject.makeShopTableCells(td, newWorldProject.combatArmor);
+      break;
+    case 'Accessories':
+      newWorldProject.deleteShopTableCells(td);
+      newWorldProject.makeShopTableCells(td, newWorldProject.combatAccessories);
+      break;
+  }
+});
 
 // Code that will be used later for the world map navigator
 //

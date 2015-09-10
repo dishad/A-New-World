@@ -52,18 +52,55 @@ main, body {
   .shopBox {
     position: absolute;
     margin-left: 225px;
-    margin-top: 145px;
+    margin-top: 10px;
     width: 850px;
     height: 350px;
     background-color: #333300;
     border-radius: 25px;
     border: 2px solid #000;
     z-index: 3;  
-  }
-  
-  .shopItems {
-    width: 160px;
-    height: 160px;
+    
+    thead {
+      width: 100%;
+      height: 30px;
+      position: relative;
+      
+      tr {
+        width: 100%;
+        height: 30px;
+        position: relative;
+        
+        th {
+          position: relative;
+          display: block;
+          width: 233px;
+          height: 100%;
+          text-align: center;
+          border-radius: 25px;
+          background-color: aqua;
+          
+        }
+      }
+    }
+    
+    tbody {
+      
+      td {
+        width: 100%;
+        height: 500px;
+        position: relative;
+        
+        .shopItems {
+          top: 20px;
+          width: 160px;
+          height: 160px;
+          background-color: #ffffff;
+          border-radius: 25px;
+          border: 2px solid #000;
+          align-content: left;
+        }
+      }
+    }
   }
   
   .leftMonster {
