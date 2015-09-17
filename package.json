@@ -1,5 +1,5 @@
 {
-  "name": "sample-app",
+  "name": "ANewWorld",
   "description": "",
   "author": "",
   "version": "0.1.0",
@@ -56,7 +56,7 @@
         "compilation_level": "ADVANCED_OPTIMIZATIONS"
       }
     },
-    "jsCompilerWhitelist": ["../js/main.js"],
+    "jsCompilerWhitelist": ["../.build/js/main.js:main-min.js"],
     "jsCompiledOutput": ".build/js",
     "publicFolder": "public",
     "symlinksToStatics": [
