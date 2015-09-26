@@ -271,7 +271,6 @@ window.addEventListener('load', function() {
     accessoryTab.className = 'thOff';
     
     world.appendChild(shopBox);
-    console.log('yay');
     shopBox.appendChild(shopHead);
     shopBox.appendChild(shopBody);
     shopBody.appendChild(tableDiv);
