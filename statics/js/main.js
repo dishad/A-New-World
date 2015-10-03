@@ -256,7 +256,6 @@ window.addEventListener('load', function() {
         accessoryOn = false,
         shopHead = document.createElement('thead'),
         shopBody = document.createElement('tbody'),
-        tableDiv = document.createElement('td'),
         shopTabs = document.createElement('tr'),
         weaponTab = document.createElement('th'),
         armorTab = document.createElement('th'),
@@ -273,19 +272,18 @@ window.addEventListener('load', function() {
     world.appendChild(shopBox);
     shopBox.appendChild(shopHead);
     shopBox.appendChild(shopBody);
-    shopBody.appendChild(tableDiv);
     shopHead.appendChild(shopTabs);
     shopTabs.appendChild(weaponTab);
     shopTabs.appendChild(armorTab);
     shopTabs.appendChild(accessoryTab);
-    newWorldProject.makeShopTableCells(tableDiv,newWorldProject.combatWeapons);
+    newWorldProject.makeShopTableCells(shopBody,newWorldProject.combatWeapons);
     
     
   });
   newWorldProject.movementKeys();
 });
 
-newWorldProject.makeShopTableCells = function(tableDiv, array) {
+newWorldProject.makeShopTableCells = function(tableBody, array) {
   var itemArrayOfObj = [],
       itemArrayOfElements = [],
       i;
@@ -302,44 +300,44 @@ newWorldProject.makeShopTableCells = function(tableDiv, array) {
     itemArrayOfElements[i].src = itemArrayOfObj[i].src;
     itemArrayOfElements[i].className = 'shopItems';
     
-    tableDiv.appendChild(itemArrayOfElements[i]);  
+    tableBody.appendChild(itemArrayOfElements[i]);  
   }  
 };
 
-newWorldProject.deleteShopTableCells = function(tableDiv) {
-  var shopItems = tableDiv.childNodes,
+newWorldProject.deleteShopTableCells = function(tableBody) {
+  var shopItems = tableBody.childNodes,
       shopItemsLength = shopItems.length;
 
   while (shopItems.length != 0) {
-    tableDiv.removeChild(shopItems[0]); 
+    tableBody.removeChild(shopItems[0]); 
   }
 };
 
 window.addEventListener('click', function(e) {
-  var td = document.querySelector('.shopBox tbody td');
+  var tbody = document.querySelector('.shopBox tbody'),
       tr = document.querySelector('.shopBox thead tr');
 
   //create a function that will turn all table headers 'off' and then turn 'on' the one that is selected.
   switch (e.target.textContent) {
     case 'Weapons':
-      newWorldProject.deleteShopTableCells(td);
-      newWorldProject.makeShopTableCells(td, newWorldProject.combatWeapons);
+      newWorldProject.deleteShopTableCells(tbody);
+      newWorldProject.makeShopTableCells(tbody, newWorldProject.combatWeapons);
       tr.getElementsByTagName('th')[0].className = 'thOff';
       tr.getElementsByTagName('th')[1].className = 'thOff';
       tr.getElementsByTagName('th')[2].className = 'thOff';
       e.target.className = 'thOn';
       break;
     case 'Armors':
-      newWorldProject.deleteShopTableCells(td);
-      newWorldProject.makeShopTableCells(td, newWorldProject.combatArmor);
+      newWorldProject.deleteShopTableCells(tbody);
+      newWorldProject.makeShopTableCells(tbody, newWorldProject.combatArmor);
       tr.getElementsByTagName('th')[0].className = 'thOff';
       tr.getElementsByTagName('th')[1].className = 'thOff';
       tr.getElementsByTagName('th')[2].className = 'thOff';
       e.target.className = 'thOn';
       break;
     case 'Accessories':
-      newWorldProject.deleteShopTableCells(td);
-      newWorldProject.makeShopTableCells(td, newWorldProject.combatAccessories);
+      newWorldProject.deleteShopTableCells(tbody);
+      newWorldProject.makeShopTableCells(tbody, newWorldProject.combatAccessories);
       tr.getElementsByTagName('th')[0].className = 'thOff';
       tr.getElementsByTagName('th')[1].className = 'thOff';
       tr.getElementsByTagName('th')[2].className = 'thOff';
