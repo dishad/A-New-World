@@ -198,30 +198,36 @@ newWorldProject.movementKeys = function() {
       case 37: // left arrow
         hero.style['margin-left'] = (heroLeftPos - 16) + 'px';
         stepCount++;
+        newWorldProject.randomPopup(arrayLength, stepCount);
         break;
       case 39: // right arrow
         hero.style['margin-left'] = (heroLeftPos + 16) + 'px';
         stepCount++;
+        newWorldProject.randomPopup(arrayLength, stepCount);
         break;
       case 38: // up arrow        
         hero.style['margin-top'] = (heroTopPos - 16) + 'px';
         stepCount++;
+        newWorldProject.randomPopup(arrayLength, stepCount);
         break;
       case 40: // down arrow
         hero.style['margin-top'] = (heroTopPos + 16) + 'px';
         stepCount++;
+        newWorldProject.randomPopup(arrayLength, stepCount);
         break;
     }
-
-    if (stepCount % 3 === 0) {
-      if (newWorldProject.randomEncounter[Math.floor(Math.random() * arrayLength)] === 1) {
-        newWorldProject.combatMenu();
-        stepCount = 0;
-        arrayLength = 19;
-      }
-      arrayLength--;
-    }
   });
+};
+
+newWorldProject.randomPopup = function(arrayLength, stepCount) {
+  if (stepCount % 3 === 0) {
+    if (newWorldProject.randomEncounter[Math.floor(Math.random() * arrayLength)] === 1) {
+      newWorldProject.combatMenu();
+      stepCount = 0;
+      arrayLength = 19;
+    }
+    arrayLength--;
+    }
 };
 
 newWorldProject.combatMenu = function() {
@@ -277,8 +283,6 @@ window.addEventListener('load', function() {
     shopTabs.appendChild(armorTab);
     shopTabs.appendChild(accessoryTab);
     newWorldProject.makeShopTableCells(shopBody,newWorldProject.combatWeapons);
-    
-    
   });
   newWorldProject.movementKeys();
 });
